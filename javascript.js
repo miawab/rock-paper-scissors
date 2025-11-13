@@ -4,7 +4,7 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let x = prompt("gimme good value boy, rock paper or scissors")
+    let x = prompt("choose, rock paper or scissors")
     x = x.toLowerCase();
         switch (x) {
         case 'rock':
