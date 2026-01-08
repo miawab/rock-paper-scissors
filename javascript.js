@@ -1,52 +1,71 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     let x = 3*Math.random();
     return Math.floor(x);
 }
 
-function getHumanChoice() {
-    let x = prompt("choose, rock paper or scissors")
-    x = x.toLowerCase();
-        switch (x) {
-        case 'rock':
-            return 0;
-        case 'paper':
-            return 1;
-        case 'scissors':
-            return 2; 
-    };
-}
+const result = document.querySelector("#result")
+const Hscore = document.querySelector("#human");
+const Cscore = document.querySelector("#computer");
 
-let humanScore;
-let computerScore;
-
-function playRound(humanChoice, computerChoice) {   
+function playRound(humanChoice, computerChoice) { 
+    Hscore.textContent = humanScore;
+    Cscore.textContent = computerScore; 
     if (humanChoice === computerChoice) {
-        return console.log("Draw!");
+        return result.textContent = "Draw";
     }
     let diff = humanChoice - computerChoice;
     if (diff<0) {
         diff =  diff + 3;
     }
     if (diff==1) {
-        humanScore++
-        return console.log("Win");
+        humanScore++;
+        Hscore.textContent = humanScore; 
+        return result.textContent = "Win";
     }
     else if(diff == 2) {
-        computerScore++
-        return console.log("Loss")
+        computerScore++;
+        Cscore.textContent = computerScore; 
+        return result.textContent = "Loss"
     }
-    
-}
-function playGame() {
-    humanScore = 0;
-    computerScore = 0;
-    
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    console.log(`Final score is:\n Player: ${humanScore}, Computer: ${computerScore}`)
 }
 
-playGame()
+const buttons = document.querySelector(".buttons")
+
+buttons.addEventListener("click", (e)=> {
+    let target = e.target;
+    if(target.className === "#buttons"){
+        return;
+    };
+    let humanChoice = 0;
+    switch (target.id) {
+        case "rock":
+            humanChoice = 0;
+            break;
+    
+        case "paper":
+            humanChoice = 1;
+            break;
+        
+        case "scissors":
+            humanChoice = 2;
+            break;
+    }
+    playRound(humanChoice, getComputerChoice());
+    if(humanScore >= 5){
+        result.textContent = "YOU WIN!";
+        humanScore = 0;
+        computerScore = 0; 
+    }
+    if(computerScore >= 5){
+        result.textContent = "you lose"
+        humanScore = 0;
+        computerScore = 0; 
+    }
+});
+
+
+
+
